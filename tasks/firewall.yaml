@@ -35,4 +35,3 @@
 - name: reload iptables
   command: netfilter-persistent reload
   when: ansible_distribution == "Ubuntu" or ansible_distribution=="Debian"
-...

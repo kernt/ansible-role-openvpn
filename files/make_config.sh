@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# First parameter will used as the name of the auotput file plus .ovpn
 cp /etc/openvpn/client.conf ./${1}.ovpn
 	echo " " >> ./${1}.ovpn
 	echo "<ca>" >> ./${1}.ovpn

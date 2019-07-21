@@ -1,6 +1,10 @@
 ---
+# Installs OpenVPN Monitor
 - name: Installing  required packages for ubuntu & Debian
-  apt: name="{{ packages }}" update_cache=yes state=present
+  apt: 
+    name: "{{ packages }}"
+    update_cache: yes
+    state: present
   vars:
     packages:
     - apache2
@@ -15,7 +19,10 @@
   when: ansible_distribution == "Ubuntu" or ansible_distribution=="Debian"
 
 - name: Installing required packages for Redhat & Centos
-  yum: name="{{ packages }}" update_cache=yes state=present
+  yum: 
+    name: "{{ packages }}" 
+    update_cache: yes 
+    state: present
   vars:
     packages:
     - httpd
@@ -45,6 +52,7 @@
     mode: "u=rw,g=r,o=r"
   when: ansible_distribution == "CentOS" or ansible_distribution=="RedHat"
 
+# 
 - name: Deleting apache2 home-page from apache2 directory
   file:
     path: /var/www/html/index.html
@@ -80,10 +88,13 @@
     version: master
 
 - name: restart apache2 ubuntu & Debian
-  service: name=apache2 state=restarted
+  service: 
+    name: apache2
+    state: restarted
   when: ansible_distribution == "Ubuntu" or ansible_distribution=="Debian"
 
 - name: restart httpd for Redhat & Centos
-  service: name=httpd state=restarted
+  service: 
+    name: httpd
+    state: restarted
   when: ansible_distribution == "CentOS" or ansible_distribution=="RedHat"
-...

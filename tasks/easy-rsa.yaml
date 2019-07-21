@@ -13,7 +13,6 @@
     remote_src: true
 
 - name: Copying rsa files to the working directory
-  command: cp -r /tmp/{{ easy_rsa_pkg }} /{{ base_directory }}/easy-rsa
+  command: cp -r /tmp/{{ easy_rsa_pkg }} /{{ openvpn_base_directory }}/easy-rsa
   args:
-    creates: /{{ base_directory }}/easy-rsa
-...
+    creates: /{{ openvpn_base_directory }}/easy-rsa

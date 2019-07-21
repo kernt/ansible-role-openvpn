@@ -12,29 +12,29 @@
   environment:
     EASYRSA_CRL_DAYS: 3650
   args:
-    chdir: //{{ base_directory }}/easy-rsa/
-    creates: /{{ base_directory }}/easy-rsa/pki/crl.pem
+    chdir: //{{ openvpn_base_directory }}/easy-rsa/
+    creates: /{{ openvpn_base_directory }}/easy-rsa/pki/crl.pem
 
 - name: Copying certificate revocation list
   copy:
-    src: /{{ base_directory }}/easy-rsa/pki/crl.pem
-    dest: /{{ base_directory }}
+    src: /{{ openvpn_base_directory }}/easy-rsa/pki/crl.pem
+    dest: /{{ openvpn_base_directory }}
     owner: nobody
     group: nogroup
     remote_src: yes
 
 - name: Copying client keys to openvpn directory
   copy:
-    src: "/{{ base_directory }}/easy-rsa/pki/private/{{ item }}.key"
-    dest: /{{ base_directory }}
+    src: "/{{ openvpn_base_directory }}/easy-rsa/pki/private/{{ item }}.key"
+    dest: /{{ openvpn_base_directory }}
     remote_src: yes
   with_items: "{{ lookup('file', 'clientlist').splitlines() | trim }}"
   ignore_errors: true
 
 - name: Copying client certificate to openvpn directory
   copy:
-    src: "/{{ base_directory }}/easy-rsa/pki/issued/{{ item }}.crt"
-    dest: /{{ base_directory }}
+    src: "/{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ item }}.crt"
+    dest: /{{ openvpn_base_directory }}
     remote_src: yes
   with_items: "{{ lookup('file', 'clientlist').splitlines() }}"
   ignore_errors: true
@@ -43,22 +43,26 @@
   copy:
   args:
     src: make_config.sh
-    dest: /{{ base_directory }}/
+    dest: /{{ openvpn_base_directory }}/
     mode: 0700
 
 - name: Creating client certificate and key
   command: ./make_config.sh "{{ item.split(',')[0] | trim }}"
   args:
-    chdir: /{{ base_directory }}/
-    creates: /{{ base_directory }}/"{{ item }}".ovpn
+    chdir: /{{ openvpn_base_directory }}/
+    creates: /{{ openvpn_base_directory }}/"{{ item }}".ovpn
   with_items: "{{ lookup('file', 'clientlist').splitlines() }}"
   ignore_errors: true
 
 - name: Copying the client.ovpn to localhost
   fetch:
-    src: "/{{ base_directory }}/{{ item }}.ovpn"
+    src: "/{{ openvpn_base_directory }}/{{ item }}.ovpn"
     dest: /tmp/
     flat: yes
   with_items: "{{ lookup('file', 'clientlist').splitlines() }}"
   ignore_errors: true
-...
+
+- name: Copying the client.openvpn to  openvpn_clients
+  copy:
+    src: 
+   
