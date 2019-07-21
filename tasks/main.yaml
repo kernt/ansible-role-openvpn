@@ -1,0 +1,37 @@
+---
+- name: Including install.yaml OpenVPN tasks
+  include: install.yaml
+
+- name: Verifying easyrsa exist
+  stat:
+    path: "/{{ base_directory }}/easy-rsa/easyrsa"
+  register: rsa
+
+- name: Including easy-rsa.yaml for OpenVPN setup
+  include: easy-rsa.yaml
+  when: not rsa.stat.exists
+
+- name: Including server_keys.yaml for OpenVPN setup
+  include: server_keys.yaml
+
+- name: Including config.yaml for OpenVPN setup
+  include: config.yaml
+
+- name: Including client_keys.yaml for OpenVPN setup
+  include: client_keys.yaml
+
+- name: Including revoke.yaml for OpenVpn setup
+  include: revoke.yaml
+
+- name: Including firewall.yaml for OpenVPN setup
+  include: firewall.yaml
+
+- name: Verifying openvpn-monitor exist
+  stat:
+    path: "/etc/apache2/conf-available/openvpn-monitor.conf"
+  register: monitor
+
+- name: Including openvpn-monitor.yaml for OpenVPN setup
+  include: openvpn-monitor.yaml
+  when: not monitor.stat.exists
+...
