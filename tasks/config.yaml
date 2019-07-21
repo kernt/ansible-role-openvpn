@@ -1,13 +1,14 @@
 ---
+
 - name: Copy the sample template of server configuration
   template:
-  args:
+  #args:
     src: server.conf.j2
     dest: /{{ openvpn_base_directory }}/server.conf
 
 - name: Copy the sample template of client configuration
   template:
-  args:
+# args:
     src: client.conf.j2
     dest: /{{ openvpn_base_directory }}/client.conf
 

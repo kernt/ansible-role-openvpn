@@ -63,4 +63,4 @@
   - /{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ openvpn_server_name }}.crt
   - /{{ openvpn_base_directory }}/easy-rsa/pki/private/{{ openvpn_server_name }}.key
   - /{{ openvpn_base_directory }}/easy-rsa/pki/dh.pem
-  
+
