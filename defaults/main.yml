@@ -1,6 +1,6 @@
 ---
 # Enter name of Server
-openvpn_server_name: "{{ ansible_fqdn_hostname }}"
+openvpn_server_name: "vmd36612.contaboserver.net"
 # Enter PROTOCOL on which OpenVpn will work
 OPENVPN_PROTOCOL: "UDP"
 # Enter PORT on which OpenVpn will work
