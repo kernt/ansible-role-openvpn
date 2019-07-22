@@ -53,14 +53,14 @@
     creates: /{{ openvpn_base_directory }}/ta.key
   when: not ta_key.stat.exists
 
-- name: Copying keys to openvpn directory
-  copy:
-    src: "{{ item }}"
-    dest: /{{ openvpn_base_directory }}
-    remote_src: yes
-  with_items:
-  - /{{ openvpn_base_directory }}/easy-rsa/pki/ca.crt
-  - /{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ openvpn_server_name }}.crt
-  - /{{ openvpn_base_directory }}/easy-rsa/pki/private/{{ openvpn_server_name }}.key
-  - /{{ openvpn_base_directory }}/easy-rsa/pki/dh.pem
+#- name: Copying Server keys to openvpn directory
+#  copy:
+#    src: "{{ item }}"
+#    dest: /{{ openvpn_base_directory }}
+#    remote_src: yes
+#  with_items:
+#  - /{{ openvpn_base_directory }}/easy-rsa/pki/ca.crt
+#  - /{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ openvpn_server_name }}.crt
+#  - /{{ openvpn_base_directory }}/easy-rsa/pki/private/{{ openvpn_server_name }}.key
+#  - /{{ openvpn_base_directory }}/easy-rsa/pki/dh.pem
 
