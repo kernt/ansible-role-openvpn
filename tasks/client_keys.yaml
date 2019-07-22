@@ -21,7 +21,7 @@
     dest: /{{ openvpn_base_directory }}
     owner: nobody
     group: nogroup
-    remote_src: yes
+    #remote_src: yes
 
 - name: Copying client keys to openvpn directory
   copy:
