@@ -1,4 +1,10 @@
 ---
+# OpenVPN Servers
+openvpn_servers: []
+
+# OpenVPN Clients
+openvpn_clients: []
+
 # Enter name of Server
 openvpn_server_name: "vmd36612.contaboserver.net"
 # Enter PROTOCOL on which OpenVpn will work
@@ -9,6 +15,7 @@ OPENVPN_PORT: "1194"
 openvpn_server_network: "10.1.0.0"
 openvpn_base_directory: "/etc/openvpn"
 enable_easyrsa_ca_management: "true"
+enable_easyrsa_ansible_role: "False" # not used currently
 enable_epel_repo: "false" # not defined currently
 epel_repo: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
 easy_rsa_url: "https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.4/EasyRSA-3.0.4.tgz"

@@ -1,4 +1,19 @@
 ---
+# If we set these as facts, they are reachable via hostvars
+- name: set fact ipv4 interface default if not defined
+  set_fact:
+    openvpn_intra_if: "{{ ansible_default_ipv4.interface }}"
+  when: openvpn_intra_if is not defined
+
+- name: set fact ipv4 interface ip if not defined
+  set_fact:
+    openvpn_intra_ipv4: "{{ hostvars[inventory_hostname]['ansible_' + openvpn_intra_if]['ipv4'] }}"
+  when: openvpn_intra_ipv4 is not defined
+
+- set_fact:
+    openvpn_intra_cidr: "{{ (openvpn_intra_ipv4.network + '/' + openvpn_intra_ipv4.netmask) | ipaddr('net') }}"
+  when: openvpn_intra_cidr is not defined
+
 # tasks file for ansible-role-openvpn
 - name: Including install.yaml OpenVPN tasks
   include: install.yaml
@@ -12,8 +27,13 @@
   include: easy-rsa.yaml
   when: not rsa.stat.exists and enable_easyrsa_ca_management
 
+#- name: Execute external Ansible role for easyCA
+#  include_role: "{{ enable_easyrsa_ansible_role }}"
+#  when: enable_easyrsa_ansible_role if not == "False"
+
 - name: Including server_keys.yaml for OpenVPN setup
   include: server_keys.yaml
+  when: 
 
 - name: Including config.yaml for OpenVPN setup
   include: config.yaml

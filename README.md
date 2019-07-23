@@ -36,3 +36,10 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+## Quellen
+
+* [rsa-key-management](https://openvpn.net/community-resources/rsa-key-management/)
+* [Ansible role for easy_rsa](https://github.com/kernt/easy_rsa)
+* [openvpn ansible role example for loops](https://github.com/stackhpc/ansible-role-openvpn/blob/master/tasks/main.yml)
+* [easy-rsa quickstart](https://github.com/OpenVPN/easy-rsa/blob/master/README.quickstart.md)
