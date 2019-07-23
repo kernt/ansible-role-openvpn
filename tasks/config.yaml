@@ -2,19 +2,17 @@
 
 - name: Copy the sample template of server configuration
   template:
-  #args:
     src: server.conf.j2
-    dest: /{{ openvpn_base_directory }}/server.conf
+    dest: "{{ openvpn_base_directory }}/server.conf"
 
 - name: Copy the sample template of client configuration
   template:
-# args:
     src: client.conf.j2
-    dest: /{{ openvpn_base_directory }}/client.conf
+    dest: "{{ openvpn_base_directory }}/client.conf"
 
 - name: Indicating PORT & OPENVPN_PROTOCOL in server.conf
   lineinfile:
-    dest: /{{ openvpn_base_directory }}/server.conf
+    dest: "{{ openvpn_base_directory }}/server.conf"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     state: present
@@ -22,12 +20,13 @@
   - { regexp: 'port 1194', line: 'port {{ OPENVPN_PORT }}' }
   - { regexp: 'proto udp', line: 'proto {{ OPENVPN_PROTOCOL }}' }
 
-- name: Getting public IP for client.conf
-  ipify_facts:
+#- name: Getting public IP for client.conf
+#  ipify_facts:
+#    - 
 
 - name: Indicating PORT & OPENVPN_PROTOCOL in client.conf
   lineinfile:
-    dest: /{{ openvpn_base_directory }}/client.conf
+    dest: "{{ openvpn_base_directory }}/client.conf"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     state: present

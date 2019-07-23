@@ -2,65 +2,64 @@
 - name: Creating pki directory
   command: ./easyrsa init-pki
   args:
-    chdir: /{{ openvpn_base_directory }}/easy-rsa/
-    creates: /{{ openvpn_base_directory }}/easy-rsa/pki
+    chdir: "{{ openvpn_base_directory }}/easy-rsa/"
+    creates: "{{ openvpn_base_directory }}/easy-rsa/pki"
+  register: init-pki
 
 - name: Verifying ca.crt exist or not
   stat: 
-    path: /{{ openvpn_base_directory }}/ca.crt
+    path: "{{ openvpn_base_directory }}/ca.crt"
   register: ca_crt
 
 - name: Creating Certificate Authority
   command: ./easyrsa --batch build-ca nopass
   args:
-    chdir: /{{ openvpn_base_directory }}/easy-rsa/
-    creates: /{{ openvpn_base_directory }}/easy-rsa/pki/ca.crt
+    chdir: "{{ openvpn_base_directory }}/easy-rsa/"
+    creates: "{{ openvpn_base_directory }}/easy-rsa/pki/ca.crt"
   when: not ca_crt.stat.exists
 
 - name: Verifying dh1024.pem exist or not
   stat: 
-    path: /{{ openvpn_base_directory }}/dh.pem
+    path: "{{ openvpn_base_directory }}/dh.pem"
   register: dh_pem
 
 - name: Creating Diffie Hellman certificate
   command: ./easyrsa gen-dh
   args:
-    chdir: /{{ openvpn_base_directory }}/easy-rsa/
-    creates: /{{ openvpn_base_directory }}/easy-rsa/pki/dh.pem
+    chdir: "{{ openvpn_base_directory }}/easy-rsa/"
+    creates: "{{ openvpn_base_directory }}/easy-rsa/pki/dh.pem"
   when: not dh_pem.stat.exists
 
 - name: Verifying {{ openvpn_server_name }}.crt exist or not
   stat: 
-    path: /{{ openvpn_base_directory }}/{{ openvpn_server_name }}.crt
+    path: "{{ openvpn_base_directory }}/{{ openvpn_server_name }}.crt"
   register: server_crt
 
 - name: Creating OpenVPN {{ openvpn_server_name }} certificate and key pair
   command: ./easyrsa build-server-full {{ openvpn_server_name }} nopass
   args:
-    chdir: /{{ openvpn_base_directory }}/easy-rsa/
-    creates: /{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ openvpn_server_name }}.crt
+    chdir: "{{ openvpn_base_directory }}/easy-rsa/"
+    creates: "{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ openvpn_server_name }}.crt"
   when: not server_crt.stat.exists
 
 - name: Verifying ta.key exist or not
   stat: 
-    path: /{{ openvpn_base_directory }}/ta.key
+    path: "{{ openvpn_base_directory }}/ta.key"
   register: ta_key
 
 - name: Generating an HMAC signature to strengthen the server's TLS integrity verification capabilities
-  command: openvpn --genkey --secret /{{ openvpn_base_directory }}/ta.key
+  command: openvpn --genkey --secret "{{ openvpn_base_directory }}/ta.key"
   args:
-    chdir: /{{ openvpn_base_directory }}/easy-rsa/
-    creates: /{{ openvpn_base_directory }}/ta.key
+    chdir: "{{ openvpn_base_directory }}/easy-rsa/"
+    creates: "{{ openvpn_base_directory }}/ta.key"
   when: not ta_key.stat.exists
-
-- name: Copying Server keys to openvpn directory
-  copy:
-    src: "{{ item }}"
-    dest: /{{ openvpn_base_directory }}
-#    remote_src: yes
-  with_items:
-  - /{{ openvpn_base_directory }}/easy-rsa/pki/ca.crt
-  - /{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ openvpn_server_name }}.crt
-  - /{{ openvpn_base_directory }}/easy-rsa/pki/private/{{ openvpn_server_name }}.key
-  - /{{ openvpn_base_directory }}/easy-rsa/pki/dh.pem
-
+  
+# https://docs.ansible.com/ansible/latest/modules/file_module.html#file-module
+#- name: Copying Server keys to openvpn directory
+#  copy:
+#    src: 
+#  with_items:
+#  - "{{ openvpn_base_directory }}/easy-rsa/pki/ca.crt"
+#  - "{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ openvpn_server_name }}.crt"
+#  - "{{ openvpn_base_directory }}/easy-rsa/pki/private/{{ openvpn_server_name }}.key"
+#  - "{{ openvpn_base_directory }}/easy-rsa/pki/dh.pem"

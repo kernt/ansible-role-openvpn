@@ -5,7 +5,7 @@
   systemd:
     daemon_reload: true
 
-# starts openvpn server 
+# starts openvpn server
 - name: starting_openvpn
   service:
     name: openvpn@server

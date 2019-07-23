@@ -5,7 +5,7 @@
 
 - name: Verifying easyrsa exist
   stat:
-    path: "/{{ openvpn_base_directory }}/easy-rsa/easyrsa"
+    path: "{{ openvpn_base_directory }}/easy-rsa/easyrsa"
   register: rsa
 
 - name: Including easy-rsa.yaml for OpenVPN setup

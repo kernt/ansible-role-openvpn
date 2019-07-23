@@ -7,7 +7,7 @@ OPENVPN_PROTOCOL: "UDP"
 OPENVPN_PORT: "1194"
 # Enter Server network on which OpenVpn will work
 openvpn_server_network: "10.1.0.0"
-openvpn_base_directory: "etc/openvpn"
+openvpn_base_directory: "/etc/openvpn"
 enable_easyrsa_ca_management: "true"
 enable_epel_repo: "false" # not defined currently
 epel_repo: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
