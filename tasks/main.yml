@@ -53,6 +53,6 @@
     path: "/etc/apache2/conf-available/openvpn-monitor.conf"
   register: monitor
 
-- name: Including openvpn-monitor.yaml for OpenVPN setup
-  include: openvpn-monitor.yaml
-  when: not monitor.stat.exists and enable_openvpn_management
+#- name: Including openvpn-monitor.yaml for OpenVPN setup
+#  include: openvpn-monitor.yaml
+#  when: not monitor.stat.exists and enable_openvpn_management
