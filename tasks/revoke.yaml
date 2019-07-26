@@ -25,11 +25,11 @@
     state: absent
     path: "{{ openvpn_base_directory }}/crl.pem"
 
-- name: Copying client certificate revocation list from pki directory
-  copy:
-    src: "{{ openvpn_base_directory }}/easy-rsa/pki/crl.pem"
-    dest: "{{ openvpn_base_directory }}/crl.pem"
-    remote_src: yes
+#- name: Copying client certificate revocation list from pki directory
+#  copy:
+#    src: "{{ openvpn_base_directory }}/easy-rsa/pki/crl.pem"
+#    dest: "{{ openvpn_base_directory }}/crl.pem"
+#    remote_src: yes
 
 - name: Removing client certificate request
   file:
@@ -45,12 +45,12 @@
   with_items: "{{ lookup('file', 'revokelist').splitlines() }}"
   ignore_errors: true
 
-- name: Removing client certificate from pki directory
-  file:
-    state: absent
-    path: "{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ item }}.crt"
-  with_items: "{{ lookup('file', 'revokelist').splitlines() }}"
-  ignore_errors: true
+#- name: Removing client certificate from pki directory
+#  file:
+ #   state: absent
+ #   path: "{{ openvpn_base_directory }}/easy-rsa/pki/issued/{{ item }}.crt"
+ # with_items: "{{ lookup('file', 'revokelist').splitlines() }}"
+ # ignore_errors: true
 
 - name: Removing client key
   file:
@@ -59,12 +59,12 @@
   with_items: "{{ lookup('file', 'revokelist').splitlines() }}"
   ignore_errors: true
 
-- name: Removing client key from pki directory
-  file:
-    state: absent
-    path: "{{ openvpn_base_directory }}/easy-rsa/pki/private/{{ item }}.key"
-  with_items: "{{ lookup('file', 'revokelist').splitlines() }}"
-  ignore_errors: true
+#- name: Removing client key from pki directory
+#  file:
+#    state: absent
+#    path: "{{ openvpn_base_directory }}/easy-rsa/pki/private/{{ item }}.key"
+#  with_items: "{{ lookup('file', 'revokelist').splitlines() }}"
+#  ignore_errors: true
 
 - name: Removing client.ovpn key
   file:
