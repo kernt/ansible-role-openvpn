@@ -24,15 +24,15 @@
 #  ipify_facts:
 #    - 
 
-- name: Indicating PORT & OPENVPN_PROTOCOL in client.conf
-  lineinfile:
-    dest: "{{ openvpn_base_directory }}/client.conf"
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    state: present
-  with_items:
-  - { regexp: 'proto udp', line: 'proto {{ OPENVPN_PROTOCOL }}' }
-  - { regexp: 'remote my-server-1 1194', line: 'remote {{ ipify_public_ip }} {{ OPENVPN_PORT }}' }
-  notify:
-    - daemon_reload
-    - starting_openvpn
+#- name: Indicating PORT & OPENVPN_PROTOCOL in client.conf
+#  lineinfile:
+#    dest: "{{ openvpn_base_directory }}/client.conf"
+#    regexp: "{{ item.regexp }}"
+#    line: "{{ item.line }}"
+#    state: present
+ # with_items:
+#  - { regexp: 'proto udp', line: 'proto {{ OPENVPN_PROTOCOL }}' }
+#  - { regexp: 'remote my-server-1 1194', line: 'remote {{ ipify_public_ip }} {{ OPENVPN_PORT }}' } # ipify_public_ip not defined
+##  notify:
+ #   - daemon_reload
+ #   - starting_openvpn
