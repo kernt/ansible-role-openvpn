@@ -15,12 +15,13 @@
     chdir: "{{ openvpn_base_directory }}/easy-rsa/"
     creates: "{{ openvpn_base_directory }}/easy-rsa/pki/crl.pem"
 
-- name: Copying certificate revocation list
-  copy:
-    src: "{{ openvpn_base_directory }}/easy-rsa/pki/crl.pem"
-    dest: "{{ openvpn_base_directory }}"
-    owner: nobody
-    group: nogroup
+# not working 
+#- name: Copying certificate revocation list
+#  copy:
+#    src: "{{ openvpn_base_directory }}/easy-rsa/pki/crl.pem"
+#    dest: "{{ openvpn_base_directory }}"
+#    owner: nobody
+#    group: nogroup
 
 - name: Copying client keys to openvpn directory
   copy:
