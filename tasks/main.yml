@@ -18,14 +18,14 @@
 - name: Including install.yaml OpenVPN tasks
   include: install.yaml
 
-- name: Verifying easyrsa exist
-  stat:
-    path: "{{ openvpn_base_directory }}/easy-rsa/easyrsa"
-  register: rsa
+#- name: Verifying easyrsa exist
+#  stat:
+#    path: "{{ openvpn_base_directory }}/easy-rsa/easyrsa"
+#  register: rsa
 
-- name: Including easy-rsa.yaml for OpenVPN setup
-  include: easy-rsa.yaml
-  when: not rsa.stat.exists and enable_easyrsa_ca_management
+#- name: Including easy-rsa.yaml for OpenVPN setup
+#  include: easy-rsa.yaml
+#  when: not rsa.stat.exists and enable_easyrsa_ca_management
 
 #- name: Execute external Ansible role for easyCA
 #  include_role: "{{ enable_easyrsa_ansible_role }}"
@@ -38,20 +38,20 @@
 - name: Including config.yaml for OpenVPN setup
   include: config.yaml
 
-- name: Including client_keys.yaml for OpenVPN setup
-  include: client_keys.yaml
+#- name: Including client_keys.yaml for OpenVPN setup
+#  include: client_keys.yaml
 
-- name: Including revoke.yaml for OpenVpn setup
-  include: revoke.yaml
+#- name: Including revoke.yaml for OpenVpn setup
+#  include: revoke.yaml
 
-- name: Including firewall.yaml for OpenVPN setup
-  include: firewall.yaml
-  when: enable_openvpn_manage_firewall
+#- name: Including firewall.yaml for OpenVPN setup
+#  include: firewall.yaml
+#  when: enable_openvpn_manage_firewall
 
-- name: Verifying openvpn-monitor exist
-  stat:
-    path: "/etc/apache2/conf-available/openvpn-monitor.conf"
-  register: monitor
+#- name: Verifying openvpn-monitor exist
+#  stat:
+#    path: "/etc/apache2/conf-available/openvpn-monitor.conf"
+#  register: monitor
 
 #- name: Including openvpn-monitor.yaml for OpenVPN setup
 #  include: openvpn-monitor.yaml
