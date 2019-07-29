@@ -31,9 +31,9 @@
 #  include_role: "{{ enable_easyrsa_ansible_role }}"
 #  when: enable_easyrsa_ansible_role if not == "False"
 
-- name: Including server_keys.yaml for OpenVPN setup
-  include: server_keys.yaml
-  when: 
+#- name: Including server_keys.yaml for OpenVPN setup
+#  include: server_keys.yaml
+#  when: 
 
 - name: Including config.yaml for OpenVPN setup
   include: config.yaml

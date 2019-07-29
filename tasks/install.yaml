@@ -6,11 +6,12 @@
     cache_valid_time: 3600
   when: ansible_distribution == "Ubuntu" or ansible_distribution=="Debian"
 
-- name: Install EPEL repository
-  yum:
-    name: "{{ epel_repo }}"
-    state: present
-  when: ansible_distribution == "CentOS" or ansible_distribution=="RedHat"
+# Managed by EPEL role
+#- name: Install EPEL repository
+#  yum:
+#    name: "{{ epel_repo }}"
+#    state: present
+#  when: ansible_distribution == "CentOS" or ansible_distribution=="RedHat"
 
 - name: Install EPEL for for Redhat & Centos
   package:

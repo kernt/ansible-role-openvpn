@@ -1,9 +1,14 @@
 ---
+# https://www.digitalocean.com/community/tutorials/how-to-set-up-and-configure-an-openvpn-server-on-centos-7
 # OpenVPN Servers
 openvpn_servers: []
 
 # OpenVPN Clients
 openvpn_clients: []
+
+openvpn_private_ipv4: "192.168.4.0"
+openvpn_private_ipv4_subnet: "255.255.255.0"
+openvpn_private_ipv4_gw: "192.168.4.1"
 
 # Enter name of Server
 openvpn_server_name: "vmd36612.contaboserver.net"

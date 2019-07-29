@@ -27,6 +27,24 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
          - { role: username.rolename, x: 42 }
 
+Configure EasyRSA manuelly
+--------------------------
+
+```s
+easyrsa init-pki
+PATH=$PATH:/usr/share/easy-rsa/3.0.3/
+easyrsa init-pki
+easyrsa build-ca
+easyrsa gen-dh
+easyrsa gen-req server nopass
+easyrsa sign-req server server
+easyrsa gen-req client nopass
+easyrsa sign-req client client
+
+openssl dhparam -out /etc/openvpn/dh2048.pem 2048
+
+```
+
 License
 -------
 
